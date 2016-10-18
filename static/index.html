@@ -20,7 +20,7 @@
 		<script type="text/html" id="photolist">
 			<% _.each(_.groupBy(photos, (element, index) => {
 				return Math.floor(index/4);
-			}), (chunk) => {
+			}), (chunk) => { %>
 				<div class="row">
 					<% _.each(chunk, (photo, key, list) => { %>
 						<div class="col-xs-6 col-md-3">
@@ -52,8 +52,8 @@ var loadpage = (n, $target) => {
 			},
 		],
 	});
-	$target.replace(rendered);
-}
+	$target.replaceWith(rendered);
+};
 $(() => {
 	loadpage(0);
 
