@@ -8,9 +8,12 @@ from aiohttp import web
 
 app = muffin.Application(__name__, DEBUG=True)
 
+with open('static/index.html', 'r') as i:
+    indexfile = i.read()
+
 @app.register('/')
 async def index(req):
-    return web.Response(text='hello')
+    return muffin.HTTPFound('/index.html')
 
 
 if __name__ == '__main__':
@@ -27,10 +30,11 @@ if __name__ == '__main__':
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             sock.bind((args.host, port))
-        except OSError:
+        except OSError as e:
+            print(e)
             # address is already in use?
             if args.port:
-                parser.error('Port is busy')
+                parser.error('Port %d is busy?' % port)
         else:
             sock.close()
             print('Will listen on port %d' % port)
