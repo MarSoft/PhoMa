@@ -20,8 +20,8 @@ async def index(req):
         indexfile = i.read()
     return indexfile
 
-@app.register('/list')
-async def list(req):
+@app.register('/page/{n:[0-9]}')
+async def page(req):
     name = 'IMG_20160202_123456.JPG'
     return [
         dict(
