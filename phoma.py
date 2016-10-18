@@ -31,6 +31,7 @@ if __name__ == '__main__':
                 parser.error('Port is busy')
         else:
             sock.close()
+            print('Will listen on port %d' % port)
             break
 
     app.manage.handlers['run'](
