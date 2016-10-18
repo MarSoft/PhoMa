@@ -5,7 +5,7 @@ import socket
 
 import muffin
 
-app = muffin.Application(__name__)
+app = muffin.Application(__name__, DEBUG=True)
 
 @app.register('/')
 async def index(req):
@@ -34,6 +34,7 @@ if __name__ == '__main__':
             print('Will listen on port %d' % port)
             break
 
+    app.uri = '{}:app'.format(parser.prog)
     app.manage.handlers['run'](
         bind='{}:{}'.format(args.host, port),
     )
