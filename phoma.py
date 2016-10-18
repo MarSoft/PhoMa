@@ -36,6 +36,7 @@ if __name__ == '__main__':
             print(e)
             # address is already in use?
             if args.port:
+                break
                 parser.error('Port %d is busy?' % port)
         else:
             sock.close()
