@@ -43,4 +43,5 @@ if __name__ == '__main__':
             print('Will listen on port %d' % port)
             break
 
+    app.loop.run_until_complete(app.start())
     web.run_app(app, host=args.host, port=port)
