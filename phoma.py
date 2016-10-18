@@ -3,13 +3,14 @@ from argparse import ArgumentParser
 from random import randrange
 import socket
 
-import muffin
+from aiohttp import web
 
-app = muffin.Application(__name__, DEBUG=True)
-
-@app.register('/')
 async def index(req):
-    pass
+    return web.Response(text='hello')
+
+
+app = web.Application()
+app.router.add_get('/', index)
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -34,7 +35,4 @@ if __name__ == '__main__':
             print('Will listen on port %d' % port)
             break
 
-    app.uri = '{}:app'.format(parser.prog)
-    app.manage.handlers['run'](
-        bind='{}:{}'.format(args.host, port),
-    )
+    web.run_app(app, host=args.host, port=port)
