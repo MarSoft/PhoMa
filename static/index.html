@@ -11,6 +11,9 @@
 		<div class="container">
 			<h1>PhoMa</h1>
 			<div class="wrapper">
+				<div class="firstpage">
+					Loading...
+				</div>
 			</div>
 		</div>
 
@@ -27,7 +30,8 @@
 						</div>
 					<% }); %>
 				</div>
-			});
+			<% }); %>
+			<a href="#" class="nextpage" data-page="<%= page+1 %>">More</a>
 		</script>
 
 		<script src="/static/underscore.js"></script>
@@ -35,9 +39,11 @@
 		<script src="/static/js/bootstrap.min.js"></script>
 
 		<script>
-$(() => {
-	var tpl = _.template($('#photolist').html());
+var tpl = _.template($('#photolist').html());
+var loadpage = (n, $target) => {
+	$target = $target || $('.firstpage');
 	var rendered = tpl({
+		page: n,
 		photos: [
 			{
 				name: 'IMG_20160202_123456.JPG',
@@ -46,7 +52,15 @@ $(() => {
 			},
 		],
 	});
-	$('.wrapper').html(rendered);
+	$target.replace(rendered);
+}
+$(() => {
+	loadpage(0);
+
+	$('body').on('click', '.nextpage', (e) => {
+		e.preventDefault();
+		loadpage($(this).data('page'));
+	});
 });
 		</script>
 	</body>
