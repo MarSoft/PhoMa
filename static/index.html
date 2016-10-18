@@ -33,13 +33,16 @@
 		<script>
 $(() => {
 	var tpl = _.template($('#photolist').html());
-	$('#wrapper').html(tpl({
+	var rendered = tpl({
 		photos: [
 			{
 				name: 'IMG_20160202_123456.JPG',
+				href: '/fetch/IMG_20160202_123456.JPG',
+				preview: '/preview/IMG_20160202_123456.JPG',
 			},
 		],
-	}));
+	});
+	$('.wrapper').html(rendered);
 });
 		</script>
 	</body>
