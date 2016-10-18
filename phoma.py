@@ -8,12 +8,11 @@ from aiohttp import web
 
 app = muffin.Application(__name__, DEBUG=True)
 
-with open('static/index.html', 'r') as i:
-    indexfile = i.read()
-
 @app.register('/')
 async def index(req):
-    return muffin.HTTPFound('/index.html')
+    with open('static/index.html', 'r') as i:
+        indexfile = i.read()
+    return indexfile
 
 
 if __name__ == '__main__':
