@@ -11,11 +11,33 @@ app = muffin.Application(__name__, DEBUG=True)
 
 logging.basicConfig(level=logging.DEBUG)
 
+def url_for(route, **kwargs):
+    return app.router[route].url(parts=kwargs)
+
 @app.register('/')
 async def index(req):
     with open('static/index.html', 'r') as i:
         indexfile = i.read()
     return indexfile
+
+@app.register('/list')
+async def list(req):
+    name = 'IMG_20160202_123456.JPG'
+    return [
+        dict(
+            name=name,
+            href=url_for('fetch', name=name),
+            preview=url_for('preview', name=name),
+        ),
+    ]
+
+@app.register('/fetch/{name}')
+def fetch(req):
+    pass
+
+@app.register('/preview/{name}')
+def preview(req):
+    pass
 
 
 if __name__ == '__main__':
