@@ -2,11 +2,14 @@
 from argparse import ArgumentParser
 from random import randrange
 import socket
+import logging
 
 import muffin
 from aiohttp import web
 
 app = muffin.Application(__name__, DEBUG=True)
+
+logging.basicConfig(level=logging.DEBUG)
 
 @app.register('/')
 async def index(req):
