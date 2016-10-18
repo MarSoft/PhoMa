@@ -20,7 +20,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     while True:
-        port = args.port or randrange(1000, 99999)
+        port = args.port or randrange(1000, 65535)
         # check if port is available
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
