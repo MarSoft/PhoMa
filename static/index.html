@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>PhoMa - Phone/Photo Manager</title>
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
+		<div class="container">
+			<h1>PhoMa</h1>
+			<div class="wrapper">
+			</div>
+		</div>
+
+		<script type="text/html" id="photolist">
+			<div class="row">
+				<% _.each(photos, (photo, key, list) => { %>
+					<div class="col-xs-6 col-md-3">
+						<a href="<%= photo.href %>">
+							<img src="<%= photo.preview %>" alt="<%= photo.name %>">
+						</a>
+					</div>
+				<% }); %>
+			</div>
+		</script>
+
 		<script src="/static/underscore.js"></script>
 		<script src="/static/jquery-3.1.1.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+
+		<script>
+$(() => {
+	var tpl = _.template($('#photolist').html());
+	$('#wrapper').html(tpl({
+		photos: [
+			{
+				name: 'IMG_20160202_123456.JPG',
+			},
+		],
+	}));
+});
+		</script>
 	</body>
 </html>
