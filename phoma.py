@@ -1,3 +1,3 @@
-from flask import Flask
+import muffin
 
-app = Flask(__name__)
+app = muffin.Application(__name__)
