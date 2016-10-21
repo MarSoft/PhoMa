@@ -53,7 +53,12 @@ class AdbProtocol(Protocol):
 
     def get_file(self, name):
         with tempfile.NamedTemporaryFile() as tmp:
-            r = self.adb('pull {}/{} {}'.format(self.path, name, tmp.name))
+            r = self.adb(
+                'pull {}/{} {}'.format(
+                    self.path, name,
+                    tmp.name,
+                ),
+            )
             if r is None:
                 return False
             with open(tmp.name, 'rb') as t:
