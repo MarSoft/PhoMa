@@ -42,17 +42,20 @@
 var tpl = _.template($('#photolist').html());
 var loadpage = (n, $target) => {
 	$target = $target || $('.firstpage');
-	var rendered = tpl({
-		page: n,
-		photos: [
-			{
-				name: 'IMG_20160202_123456.JPG',
-				href: '/fetch/IMG_20160202_123456.JPG',
-				preview: '/preview/IMG_20160202_123456.JPG',
-			},
-		],
-	});
-	$target.replaceWith(rendered);
+
+	fetch('/page/'+n).then((resp) => {
+		var rendered = tpl({
+			page: n,
+			photos: [
+				{
+					name: 'IMG_20160202_123456.JPG',
+					href: '/fetch/IMG_20160202_123456.JPG',
+					preview: '/preview/IMG_20160202_123456.JPG',
+				},
+			],
+		});
+		$target.replaceWith(rendered);
+	}).catch((err) =>
 };
 $(() => {
 	loadpage(0);
