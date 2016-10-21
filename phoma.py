@@ -40,13 +40,26 @@ async def page(req):
 
 @app.register('/fetch/{name}')
 def fetch(req):
-    return protocol.get_file(req.match_info['name'])
+    data = protocol.get_file(req.match_info['name'])
+    if data is False:
+        return 'Error'
+
+    return web.Response(
+        body=data,
+        content_type='image/jpeg',
+    )
 
 @app.register('/preview/{name}')
 def preview(req):
     # TODO: compress?
-    return protocol.get_file(req.match_info['name'])
+    data = protocol.get_file(req.match_info['name'])
+    if data is False:
+        return 'Error'
 
+    return web.Response(
+        body=data,
+        content_type='image/jpeg',
+    )
 
 def main():
     parser = ArgumentParser()
