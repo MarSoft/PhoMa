@@ -44,15 +44,12 @@ var loadpage = (n, $target) => {
 	$target = $target || $('.firstpage');
 
 	fetch('/page/'+n).then((resp) => {
+		return resp.json();
+	}).then((json) => {
+		console.log(json);
 		var rendered = tpl({
 			page: n,
-			photos: [
-				{
-					name: 'IMG_20160202_123456.JPG',
-					href: '/fetch/IMG_20160202_123456.JPG',
-					preview: '/preview/IMG_20160202_123456.JPG',
-				},
-			],
+			photos: json,
 		});
 		$target.replaceWith(rendered);
 	}).catch((err) => {
