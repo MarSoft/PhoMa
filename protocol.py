@@ -1,6 +1,10 @@
 from itertools import islice
+import subprocess as sp
 
 class Protocol:
+    def __init__(self, path):
+        self.path = path
+
     def list_directory(self):
         raise NotImplementedError
 
@@ -18,3 +22,26 @@ class Protocol:
 
     def get_file(self, name):
         raise NotImplementedError
+
+class AdbProtocol(Protocol):
+    def __init__(self, path, host):
+        super().__init__(path)
+        self.host = host
+
+    def adb(self, args):
+        if isinstance(args, str):
+            args = args.split()
+        try:
+            return sp.check_output(['adb']+args)
+        except sp.CalledProcessError:
+            return None
+
+    def list_directory(self):
+        cmd = 'shell busybox ls %s -tr1' % self.path
+        l = self.adb(cmd)
+        if l is None:
+            self.connect()
+            l = self.adb(cmd)
+            if l is None:
+                return ['ERROR']
+        return l
