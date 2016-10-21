@@ -36,6 +36,9 @@ class AdbProtocol(Protocol):
         except sp.CalledProcessError:
             return None
 
+    def connect(self):
+        self.adb('connect %s' % self.host)
+
     def list_directory(self):
         cmd = 'shell busybox ls %s -tr1' % self.path
         l = self.adb(cmd)
