@@ -48,4 +48,4 @@ class AdbProtocol(Protocol):
             l = self.adb(cmd)
             if l is None:
                 return ['ERROR']
-        return l
+        return l.splitlines()
