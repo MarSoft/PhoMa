@@ -56,4 +56,5 @@ class AdbProtocol(Protocol):
             r = self.adb('pull {}/{} {}'.format(self.path, name, tmp.name))
             if r is None:
                 return False
-            return tmp.file.read()
+            with open(tmp.name, 'rb') as t:
+                return t.read()
