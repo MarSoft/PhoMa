@@ -8,9 +8,12 @@ import subprocess as sp
 import muffin
 from aiohttp import web
 
+from protocol import AdbProtocol
+
 app = muffin.Application(__name__, DEBUG=True)
 
 logging.basicConfig(level=logging.DEBUG)
+protocol = AdbProtocol('/sdcard/DCIM/Camera', 'MarSoftS4A')
 
 def url_for(route, **kwargs):
     return app.router[route].url(parts=kwargs)
@@ -23,13 +26,16 @@ async def index(req):
 
 @app.register('/page/{n:[0-9]+}')
 async def page(req):
-    name = 'IMG_20160202_123456.JPG'
     return [
         dict(
             name=name,
             href=url_for('fetch', name=name),
             preview=url_for('preview', name=name),
-        ),
+        )
+        for name in protocol.list_directory_page(
+            int(req.match_info['n']),
+            12,
+        )
     ]
 
 @app.register('/fetch/{name}')
