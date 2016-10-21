@@ -41,7 +41,7 @@ def preview(req):
     pass
 
 
-if __name__ == '__main__':
+def main():
     parser = ArgumentParser()
     parser.add_argument('-H', '--host', default='127.0.0.1',
                         help='Host to bind to (defaults to localhost)')
@@ -82,3 +82,6 @@ if __name__ == '__main__':
 
     app.loop.run_until_complete(app.start())
     web.run_app(app, host=args.host, port=port)
+
+if __name__ == '__main__':
+    main()
