@@ -40,11 +40,12 @@ async def page(req):
 
 @app.register('/fetch/{name}')
 def fetch(req):
-    pass
+    return protocol.get_file(req.match_info['name'])
 
 @app.register('/preview/{name}')
 def preview(req):
-    pass
+    # TODO: compress?
+    return protocol.get_file(req.match_info['name'])
 
 
 def main():
