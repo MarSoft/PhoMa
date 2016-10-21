@@ -1,5 +1,6 @@
 from itertools import islice
 import subprocess as sp
+import tempfile
 
 class Protocol:
     def __init__(self, path):
@@ -49,3 +50,10 @@ class AdbProtocol(Protocol):
             if l is None:
                 return ['ERROR']
         return l.splitlines()
+
+    def get_file(self, name):
+        with tempfile.NamedTemporaryFile() as tmp:
+            r = self.adb('pull {}/{} {}'.format(self.path, name, tmp.name))
+            if r is None:
+                return False
+            return tmp.file.read()
