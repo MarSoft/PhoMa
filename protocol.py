@@ -32,7 +32,8 @@ class AdbProtocol(Protocol):
         if isinstance(args, str):
             args = args.split()
         try:
-            return sp.check_output(['adb']+args)
+            ret = sp.check_output(['adb']+args)
+            return ret.decode()
         except sp.CalledProcessError:
             return None
 
