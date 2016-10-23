@@ -51,7 +51,7 @@ class AdbProtocol(Protocol):
             l = self.adb(cmd)
             if l is None:
                 return ['ERROR']
-        return l.splitlines()
+        return l.strip().splitlines()
 
     def get_file(self, name):
         tpath = '{}/{}'.format(self.tdir.name, name)
