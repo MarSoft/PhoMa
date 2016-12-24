@@ -69,7 +69,13 @@ def main():
                         help='Port to bind to (defaults to random)')
     parser.add_argument('-s', '--service', action='store_true',
                         help='Don\'t start browser')
+    parser.add_argument('-P', '--phone',
+                        help='Network address of phone')
     args = parser.parse_args()
+
+    if args.phone:
+        # FIXME dirty way to specify phone's network host
+        protocol.host = args.phone
 
     while True:
         port = args.port or randrange(1000, 65535)
