@@ -9,7 +9,12 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1>PhoMa</h1>
+			<h1>
+				PhoMa
+				<span class="pull-right">
+					<a href="#" id="download_all" class="btn btn-primary">Download selected</a>
+				</span>
+			</h1>
 			<div class="wrapper">
 				<div class="firstpage">
 					Loading...
@@ -26,6 +31,12 @@
 						<div class="col-xs-6 col-md-3">
 							<a href="<%= photo.href %>" class="thumbnail">
 								<img src="<%= photo.preview %>" alt="<%= photo.name %>">
+								<div class="caption">
+									<label>
+										<input type="checkbox" class="downsel" data-href="<%= photo.href %>">
+										<%= photo.name %>
+									</label>
+								</div>
 							</a>
 						</div>
 					<% }); %>
@@ -64,6 +75,13 @@ $(() => {
 		var $this = $(this);
 		var n = $this.attr('data-page');
 		loadpage(n, $this);
+	});
+
+	$('#download_all').click(function(e) {
+		e.preventDefault();
+		$('input[type=checkbox].downsel:checked').each(function() {
+			window.open($(this).data('href'));
+		});
 	});
 });
 		</script>
