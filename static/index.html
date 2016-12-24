@@ -80,7 +80,7 @@ $(() => {
 	$('#download_all').click(function(e) {
 		e.preventDefault();
 		$('input[type=checkbox].downsel:checked').each(function() {
-			window.open($(this).data('href'));
+			window.open($(this).data('href')+'?dl=1');
 		});
 	});
 });

@@ -44,9 +44,14 @@ def fetch(req):
     if data is False:
         return 'Error'
 
+    if req.GET.get('dl'):
+        ctype = 'application/octet-stream'
+    else:
+        ctype = 'image/jpeg'
+
     return web.Response(
         body=data,
-        content_type='image/jpeg',
+        content_type=ctype,
     )
 
 @app.register('/preview/{name}')
