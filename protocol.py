@@ -25,6 +25,9 @@ class Protocol:
     def get_file(self, name):
         raise NotImplementedError
 
+    async def delete_list(self, names):
+        raise NotImplementedError
+
 class AdbProtocol(Protocol):
     def __init__(self, path, host):
         super().__init__(path)
@@ -67,3 +70,14 @@ class AdbProtocol(Protocol):
                 return False
         with open(tpath, 'rb') as t:
             return t.read()
+
+    async def delete_list(self, names):
+        r = self.adb(
+            'shell rm %s' % ' '.join(
+                '%s/%s' % (self.path, name)
+                for name in names
+            )
+        )
+        if r is None:
+            return False
+        return r

@@ -66,6 +66,18 @@ def preview(req):
         content_type='image/jpeg',
     )
 
+@app.register('/delete', methods=['POST'])
+async def delete(req):
+    await req.post()
+    names = req.POST.get('names')
+    if not names:
+        return 'Error - filenames required'
+    ret = await protocol.delete_list(names)
+    if ret:
+        return 'Success: ' + ret
+    else:
+        return 'Failed'
+
 def main():
     parser = ArgumentParser()
     parser.add_argument('-H', '--host', default='127.0.0.1',
