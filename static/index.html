@@ -98,16 +98,17 @@ $(() => {
 		var names = $('input[type=checkbox].downsel:checked').map(function() {
 			return $(this).data('name');
 		}).get();
-		$.ajax({
+		fetch('/delete', {
 			method: 'POST',
-			url: '/delete',
-			data: {
+			body: {
 				names: names,
 			},
-		}).then(function(ret) {
+		}).then(ret => {
+			return ret.text();
+		}).then(ret => {
 			alert('Delete result: ' + ret);
 			window.location.reload();
-		}).catch(function(err) {
+		}).catch(err => {
 			alert('Failed to delete');
 		});
 	});
