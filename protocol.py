@@ -12,8 +12,11 @@ class Protocol:
 
     def list_directory_page(self, page, pagesize):
         start = page * pagesize
+        ldir = self.list_directory()
+        if ldir is None:
+            return None
         return islice(
-            self.list_directory(),
+            ldir,
             start, start + pagesize,
         )
 
@@ -53,7 +56,7 @@ class AdbProtocol(Protocol):
             self.connect()
             l = self.adb(cmd)
             if l is None:
-                return ['ERROR']
+                return None
         return l.strip().splitlines()
 
     def get_file(self, name):
