@@ -12,6 +12,7 @@
 			<h1>
 				PhoMa
 				<span class="pull-right">
+					<a href="#" id="delete_many" class="btn btn-danger">Remove selected</a>
 					<a href="#" id="download_all" class="btn btn-primary">Download selected</a>
 				</span>
 			</h1>
@@ -33,7 +34,7 @@
 								<img src="<%= photo.preview %>" alt="<%= photo.name %>">
 								<div class="caption">
 									<label>
-										<input type="checkbox" class="downsel" data-href="<%= photo.href %>">
+										<input type="checkbox" class="downsel" data-href="<%= photo.href %>" data-name="<%= photo.name %>">
 										<%= photo.name %>
 									</label>
 								</div>
@@ -81,6 +82,24 @@ $(() => {
 		e.preventDefault();
 		$('input[type=checkbox].downsel:checked').each(function() {
 			window.open($(this).data('href')+'?dl=1');
+		});
+	});
+	$('#delete_many').click(function(e) {
+		e.preventDefault();
+		var names = $('input[type=checkbox].downsel:checked').map(function() {
+			return $(this).data('name');
+		}).get();
+		$.ajax({
+			method: 'POST',
+			url: '/delete',
+			data: {
+				names: names,
+			},
+		}).then(function(ret) {
+			alert('Delete result: ' + ret);
+			window.location.reload();
+		}).catch(function(err) {
+			alert('Failed to delete');
 		});
 	});
 });
