@@ -30,15 +30,17 @@
 				<div class="row">
 					<% _.each(chunk, (photo, key, list) => { %>
 						<div class="col-xs-6 col-md-3">
-							<a href="<%= photo.href %>" class="thumbnail">
-								<img src="<%= photo.preview %>" alt="<%= photo.name %>">
+							<div class="thumbnail">
+								<a href="<%= photo.href %>">
+									<img src="<%= photo.preview %>" alt="<%= photo.name %>">
+								</a>
 								<div class="caption">
 									<label>
 										<input type="checkbox" class="downsel" data-href="<%= photo.href %>" data-name="<%= photo.name %>">
 										<%= photo.name %>
 									</label>
 								</div>
-							</a>
+							</div>
 						</div>
 					<% }); %>
 				</div>
