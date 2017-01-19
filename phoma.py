@@ -30,8 +30,8 @@ async def page(req):
         int(req.match_info['n']),
         12,
     )
-    if dirpage is False:
-        return dict(error='Failed to fetch directory listing'), 500
+    if dirpage in (None, False):
+        return dict(error='Failed to fetch directory listing')
     return dict(files=[
         dict(
             name=name,
