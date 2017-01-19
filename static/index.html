@@ -18,7 +18,9 @@
 			</h1>
 			<div class="wrapper">
 				<div class="firstpage">
-					Loading...
+					<span class="loading">
+						Loading...
+					</span>
 				</div>
 			</div>
 		</div>
@@ -72,6 +74,7 @@ var loadpage = (n, $target) => {
 	}).catch((err) => {
 		var etxt = err.toString ? err.toString() : JSON.stringify(err);
 		alert(etxt);
+		$('.loading').remove();
 	});
 };
 $(() => {
