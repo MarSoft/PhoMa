@@ -98,11 +98,13 @@ $(() => {
 		var names = $('input[type=checkbox].downsel:checked').map(function() {
 			return $(this).data('name');
 		}).get();
+		var data = new FormData();
+		names.forEach(name => {
+			data.append('names', name);
+		});
 		fetch('/delete', {
 			method: 'POST',
-			body: {
-				names: names,
-			},
+			body: data,
 		}).then(ret => ret.text()).then(ret => {
 			alert('Delete result: ' + ret);
 			window.location.reload();
