@@ -103,9 +103,7 @@ $(() => {
 			body: {
 				names: names,
 			},
-		}).then(ret => {
-			return ret.text();
-		}).then(ret => {
+		}).then(ret => ret.text()).then(ret => {
 			alert('Delete result: ' + ret);
 			window.location.reload();
 		}).catch(err => {
