@@ -26,17 +26,20 @@ async def index(req):
 
 @app.register('/page/{n:[0-9]+}')
 async def page(req):
-    return [
+    dirpage = protocol.list_directory_page(
+        int(req.match_info['n']),
+        12,
+    )
+    if dirpage is False:
+        return dict(error='Failed to fetch directory listing'), 500
+    return dict(files=[
         dict(
             name=name,
             href=url_for('fetch', name=name),
             preview=url_for('preview', name=name),
         )
-        for name in protocol.list_directory_page(
-            int(req.match_info['n']),
-            12,
-        )
-    ]
+        for name in dirpage
+    ])
 
 @app.register('/fetch/{name}')
 def fetch(req):
