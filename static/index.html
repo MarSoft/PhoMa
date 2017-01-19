@@ -61,9 +61,12 @@ var loadpage = (n, $target) => {
 		return resp.json();
 	}).then((json) => {
 		console.log(json);
+		if(json.error) {
+			throw json.error;
+		}
 		var rendered = tpl({
 			page: n,
-			photos: json,
+			photos: json.files,
 		});
 		$target.replaceWith(rendered);
 	}).catch((err) => {
