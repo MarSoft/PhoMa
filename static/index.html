@@ -67,7 +67,8 @@ var loadpage = (n, $target) => {
 		});
 		$target.replaceWith(rendered);
 	}).catch((err) => {
-		alert(JSON.stringify(err));
+		var etxt = err.toString ? err.toString() : JSON.stringify(err);
+		alert(etxt);
 	});
 };
 $(() => {
